@@ -1,0 +1,26 @@
+require "test_helper"
+
+class SessionsControllerTest < ActionDispatch::IntegrationTest
+  # NOTE: action new
+  test "login works for manager" do
+    company = Company.create!(name: "Company")
+
+    get auth_master_login_url(target: :manager)
+    assert_response :success
+  end
+
+  test "send_link works for manager" do
+    email = 'new@user.email'
+    company = Company.create!(name: "Company")
+    manager = Manager.create!(email:, company:)
+
+    assert_difference("AuthMaster::Session.count", 1) do
+      post auth_master_login_url(target: :manager), params: { email: }
+    end
+
+    assert_response :redirect
+
+    auth_master_session = AuthMaster::Session.where(target: manager).first!
+    assert auth_master_session.present?
+  end
+end
