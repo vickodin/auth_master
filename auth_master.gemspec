@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
   end
 
-  spec.add_dependency "rails", ">= 8.0.2"
-  spec.add_dependency "token_guard"
+  spec.add_dependency "rails", "~> 8.0", ">= 8.0.2"
+  spec.add_dependency "token_guard", "~> 0.1"
 end
