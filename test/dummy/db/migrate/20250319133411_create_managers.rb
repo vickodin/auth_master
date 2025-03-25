@@ -7,6 +7,6 @@ class CreateManagers < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :managers, [:email, :company_id], unique: true
+    add_index :managers, [ :email, :company_id ], unique: true
   end
 end

@@ -18,7 +18,6 @@ module AuthMaster
     end
 
     def link
-
     end
 
     private
