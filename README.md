@@ -22,7 +22,16 @@ $ gem install auth_master
 ```
 
 ## Contributing
-Contribution directions go here.
+
+Build gem:
+```bash
+$ rake build
+```
+
+Push to RubyGems.org:
+```bash
+$ gem push auth_master-x.y.z.gem
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
