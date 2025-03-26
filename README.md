@@ -21,6 +21,16 @@ Or install it yourself as:
 $ gem install auth_master
 ```
 
+Install database migrations:
+```bash
+$ bin/rails auth_master:install:migrations
+```
+
+Run migrations:
+```bash
+$ bin/rails db:migrate
+```
+
 ## Contributing
 
 Build gem:
