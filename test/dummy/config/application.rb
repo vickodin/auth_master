@@ -13,7 +13,7 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "action_cable/engine"
 require "rails/test_unit/railtie"
-require_relative "../lib/middleware/current_company_middleware"
+# require_relative "../lib/middleware/current_company_middleware"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -31,7 +31,7 @@ module Dummy
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
-    config.middleware.use CurrentCompanyMiddleware
+    # config.middleware.use CurrentCompanyMiddleware
 
     # Configuration for the application, engines, and railties goes here.
     #
