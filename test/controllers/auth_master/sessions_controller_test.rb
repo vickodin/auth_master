@@ -27,7 +27,7 @@ module AuthMaster
 
     # NOTE: action send_link
     test "send_link works for user" do
-      email = 'new@user.email'
+      email = "new@user.email"
       user = User.create!(email:)
 
       assert_difference("AuthMaster::Session.count", 1) do
@@ -41,7 +41,7 @@ module AuthMaster
     end
 
     test "send_link works for not registered user" do
-      email = 'new@user.email'
+      email = "new@user.email"
 
       assert_difference("AuthMaster::Session.count", 0) do
         post auth_master_login_url(target: :user), params: { email: }
@@ -51,7 +51,7 @@ module AuthMaster
     end
 
     test "send_link works for manager" do
-      email = 'new@user.email'
+      email   = "new@user.email"
       company = Company.create!(name: "Company")
       manager = Manager.create!(email:, company:)
 

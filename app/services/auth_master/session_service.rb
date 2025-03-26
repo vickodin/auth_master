@@ -1,4 +1,4 @@
-require 'token_guard'
+require "token_guard"
 
 module AuthMaster
   class SessionService

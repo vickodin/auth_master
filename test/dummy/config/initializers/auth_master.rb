@@ -15,6 +15,7 @@ AuthMaster.configure do |config|
       mailer_class: "UserMailer",
       mailer_login_link_method: "login_link",
       scope: :active,
+      layout: "application",
       secret: SecureRandom.hex(16),
       login_timeout_interval: 5.minutes,
       login_attempts_count: 3
