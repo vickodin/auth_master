@@ -3,3 +3,5 @@
 one:
   target: default
   target_type: User
+  status: :active
+  
