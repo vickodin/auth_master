@@ -17,6 +17,8 @@ AuthMaster.configure do |config|
       scope: :active,
       layout: "application",
       secret: SecureRandom.hex(16),
+      # Optional:
+      # token_purpose: :email,
       login_timeout_interval: 5.minutes,
       login_attempts_count: 3
     },

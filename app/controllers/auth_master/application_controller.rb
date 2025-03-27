@@ -20,6 +20,10 @@ module AuthMaster
       params[:target].to_sym
     end
 
+    def target_param_name
+      params[:target].to_sym
+    end
+
     def config_for(name)
       AuthMaster.targets[target_param][name.to_sym]
     end

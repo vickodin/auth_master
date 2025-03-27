@@ -36,7 +36,7 @@ module AuthMaster
 
       assert_response :redirect
 
-      auth_master_session = AuthMaster::Session.where(target: user).first!
+      auth_master_session = AuthMaster::Session.inactive.where(target: user).first!
       assert auth_master_session.present?
     end
 
