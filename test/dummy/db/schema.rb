@@ -17,6 +17,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_19_133411) do
   create_table "auth_master_sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "target_type", null: false
     t.uuid "target_id", null: false
+    t.integer "status", limit: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["target_type", "target_id"], name: "index_auth_master_sessions_on_target"
