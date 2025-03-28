@@ -1,5 +1,8 @@
 module AuthMaster
   class ApplicationController < ActionController::Base
+    # NOTE: Ability to use main app url helpers from main app's layout
+    helper Rails.application.routes.url_helpers
+
     def target_scoped_class
       target_scope = config_for(:scope)
       target_scope.present? ? target_accessor.send(target_scope) : target_accessor
