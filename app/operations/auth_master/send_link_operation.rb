@@ -13,9 +13,15 @@ module AuthMaster
 
       mailer = target_mailer_config(target)
       mailer_action = target_mailer_login_link_method(target)
-      
-      mailer.with(email: target.email, token:).public_send(mailer_action).deliver_later
-      
+
+      url = AuthMaster::Engine.routes.url_helpers.auth_master_link_url(
+        target: target_name(target),
+        token: token,
+        host: Rails.application.config.action_mailer.default_url_options[:host]
+      )
+
+      mailer.with(email: target.email, url:).public_send(mailer_action).deliver_later
+
       # auth_master_session
     end
   end

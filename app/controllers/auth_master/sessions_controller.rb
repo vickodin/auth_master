@@ -3,10 +3,10 @@ module AuthMaster
     TIMING_ATTACK_INTERVAL = 1
 
     before_action :check_target_configuration
-    
+
     before_action :check_token_presence,      only: :link
     before_action :check_session_time_stamp,  only: :link
-    
+
     around_action :prevent_timing_attack, only: :create
 
     # NOTE: Show input email form
@@ -16,7 +16,7 @@ module AuthMaster
     def create
       uuid = Random.uuid
       session[session_key] = uuid
-      
+
       AuthMaster::SendLinkOperation.call!(params[:email], target_scoped_class:, uuid:)
       redirect_to auth_master_sent_url(target: target_param)
     end
@@ -31,14 +31,12 @@ module AuthMaster
       uuid = session[session_key]
       auth_master_session = AuthMaster::CheckLinkOperation.call!(params[:token], uuid:, target_param_name:)
       (redirect_to(auth_master_denied_path(target: target_param_name)) and return) if auth_master_session.blank?
-      
+
       session.delete(session_key)
       session[target_session_key] = auth_master_session.id
-      
+
       redirect_back(root_path)
     end
-
-    
 
     private
 
@@ -62,11 +60,15 @@ module AuthMaster
     end
 
     def check_token_presence
-      raise ActionController::RoutingError.new("Not Found") if params[:token].blank?
+      raise ActionController::RoutingError.new("Not Found Token") if params[:token].blank?
     end
 
     def check_session_time_stamp
-      raise ActionController::RoutingError.new("Not Found") if session[session_key].blank?
+      raise ActionController::RoutingError.new("Not Found Session") if session[session_key].blank?
+    end
+
+    def target_session_key
+      [ "current", target_param_name, "id" ].join("_")
     end
   end
 end

@@ -1,15 +1,17 @@
+require "token_guard"
+
 module AuthMaster
   class AbstractOperation
     DEFAULT_TOKEN_PURPOSE = :auth_master_email
-    
+
     class << self
-      
+
       private
-      
+
       def target_name(target)
         return target if target.is_a? Symbol
         return target.to_sym if target.is_a? String
-        
+
         target.class.to_s.underscore.to_sym
       end
 

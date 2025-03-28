@@ -6,7 +6,7 @@ module AuthMaster
 
       auth_master_session_id = TokenGuard.decrypt(encrypted_token, purpose:, secret:)
       return if auth_master_session_id.blank?
-      
+
       # NOTE: Auth from the same device
       return if auth_master_session_id != uuid
 

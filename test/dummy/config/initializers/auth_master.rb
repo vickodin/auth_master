@@ -18,6 +18,7 @@ AuthMaster.configure do |config|
       layout: "application",
       secret: SecureRandom.hex(16),
       # Optional:
+      # route: :welcome_auth_master,
       # token_purpose: :email,
       login_timeout_interval: 5.minutes,
       login_attempts_count: 3
@@ -29,6 +30,7 @@ AuthMaster.configure do |config|
       mailer_login_link_method: "login_link",
       scope: :active,
       secret: SecureRandom.hex(16),
+      # route: :welcome_auth_master,
       login_timeout_interval: 10.minutes,
       login_attempts_count: 2
     },
@@ -40,6 +42,7 @@ AuthMaster.configure do |config|
       finder: lambda { Company.find_by!(name: "Company") },
       scope: :active_managers,
       secret: SecureRandom.hex(16),
+      # route: :welcome_auth_master,
       login_timeout_interval: 5.minutes,
       login_attempts_count: 3
     }
