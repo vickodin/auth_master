@@ -35,7 +35,11 @@ module AuthMaster
       session.delete(session_key)
       session[target_session_key] = auth_master_session.id
 
-      redirect_to("/")
+      # TODO: Use config for
+      #   a) session key;
+      #   b) default redirect path
+      saved_path = session.delete("redirect_to")
+      redirect_to(saved_path || "/")
     end
 
     private
