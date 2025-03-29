@@ -1,1 +1,7 @@
-<h1>Sessions#new</h1>
+<h1>Login:</h1>
+
+<%= form_with url: send(target_route).auth_master_login_path(target: params[:target]), method: :post do |form| %>
+  <%= form.label :email, "Email:" %>
+  <%= form.email_field :email %>
+  <%= form.submit "Login" %>
+<% end %>

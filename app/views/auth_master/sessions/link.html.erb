@@ -1,0 +1,6 @@
+<h1>Login:</h1>
+
+<%= form_with url: send(target_route).auth_master_link_path(target: params[:target]), method: :post do |form| %>
+  <%= form.hidden_field :token, value: params[:token] %>
+  <%= form.submit "Login" %>
+<% end %>
