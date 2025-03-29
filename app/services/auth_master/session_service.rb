@@ -2,9 +2,7 @@ require "token_guard"
 
 module AuthMaster
   class SessionService
-
-    DEFAULT_LOGIN_TIMEOUT_INTERVAL  = 5.minutes
-    DEFAULT_LOGIN_ATTEMPTS_COUNT    = 3
+    extend AuthMaster::Config
 
     class << self
       def create!(target, uuid:)
@@ -29,23 +27,7 @@ module AuthMaster
       end
 
       def allow_creation?(target)
-        count(target, time: login_timeout_interval(target)) < login_attempts_count(target)
-      end
-
-      def login_timeout_interval(target)
-        AuthMaster.targets[target_name(target)][:login_timeout_interval] || DEFAULT_LOGIN_TIMEOUT_INTERVAL
-      end
-
-      def login_attempts_count(target)
-        AuthMaster.targets[target_name(target)][:login_attempts_count] || DEFAULT_LOGIN_ATTEMPTS_COUNT
-      end
-
-      def target_name(target)
-        target.class.to_s.downcase.to_sym
-      end
-
-      def config_for(target, name)
-        AuthMaster.targets[target_name(target)][name.to_sym]
+        count(target, time: login_timeout_interval_config(target)) < login_attempts_count_config(target)
       end
     end
   end

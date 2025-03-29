@@ -4,8 +4,8 @@ module AuthMaster
 
     before_action :check_target_configuration
 
-    before_action :check_token_presence,      only: :link
-    before_action :check_session_time_stamp,  only: :link
+    before_action :check_token_presence, only: :link
+    before_action :check_pre_session_id, only: :link
 
     around_action :prevent_timing_attack, only: :create
 
@@ -35,7 +35,7 @@ module AuthMaster
       session.delete(session_key)
       session[target_session_key] = auth_master_session.id
 
-      redirect_back(root_path)
+      redirect_to("/")
     end
 
     private
@@ -63,7 +63,7 @@ module AuthMaster
       raise ActionController::RoutingError.new("Not Found Token") if params[:token].blank?
     end
 
-    def check_session_time_stamp
+    def check_pre_session_id
       raise ActionController::RoutingError.new("Not Found Session") if session[session_key].blank?
     end
 
