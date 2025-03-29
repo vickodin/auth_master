@@ -16,8 +16,13 @@ module AuthMaster
       end
 
       def activate!(auth_master_session)
-        auth_master_session.active!
         # TODO: Save IP Address, User Agent, etc
+        auth_master_session.active!
+      end
+
+      def logout!(auth_master_session)
+        # TODO: Save IP Address, User Agent, etc
+        auth_master_session.logout!
       end
 
       private

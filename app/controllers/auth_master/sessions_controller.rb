@@ -42,6 +42,14 @@ module AuthMaster
       redirect_to(saved_path || "/")
     end
 
+    def destroy
+      auth_master_session_id = session.delete(target_session_key)
+      AuthMaster::LogoutOperation.call!(auth_master_session_id)
+
+      # TODO: Use config for redirect_path
+      redirect_to("/")
+    end
+
     private
 
     def session_key
