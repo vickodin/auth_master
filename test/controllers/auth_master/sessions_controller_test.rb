@@ -102,5 +102,27 @@ module AuthMaster
       auth_master_session.reload
       assert auth_master_session.active?
     end
+
+    test "destroy makes session's state eq logout" do
+      # NOTE: Prepare session
+      email = "new@user.email"
+      user = User.create!(email:)
+      post auth_master_login_url(target: :user), params: { email: }
+
+      # NOTE: Prepare token
+      auth_master_session = AuthMaster::Session.inactive.where(target: user).last!
+      secret = AuthMaster.targets[:user][:secret]
+      token = TokenGuard.encrypt(auth_master_session.id, purpose: token_purpose_config(:user), secret: secret_config(:user))
+
+      post auth_master_link_url(target: :user), params: { token: }
+      auth_master_session.reload
+      assert auth_master_session.active?
+
+      delete auth_master_logout_url(target: :user)
+      assert_response :redirect
+
+      auth_master_session.reload
+      assert auth_master_session.logout?
+    end
   end
 end
