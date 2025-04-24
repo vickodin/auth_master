@@ -4,10 +4,11 @@ module AuthMaster
       auth_master_session = AuthMaster::SessionService.create!(target, uuid:)
       return if auth_master_session.blank?
 
-      purpose = token_purpose_config(target)
-      secret  = secret_config(target)
+      AuthMaster::TokenService.create!(auth_master_session)
+      # purpose = token_purpose_config(target)
+      # secret  = secret_config(target)
 
-      TokenGuard.encrypt(auth_master_session.id, purpose:, secret:)
+      # TokenGuard.encrypt(auth_master_session.id, purpose:, secret:)
 
       # mailer = target_mailer_config(target)
       # mailer_action = target_mailer_login_link_method(target)

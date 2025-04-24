@@ -1,10 +1,6 @@
 module AuthMaster::CurrentConcern
   extend ActiveSupport::Concern
 
-  # included do
-  #   helper_method :current_auth_master
-  # end
-
   def auth_master_current(target_param_name)
     session_accessor_key = [ "current", target_param_name, "id" ].join("_")
     auth_master_session_id = session[session_accessor_key]
