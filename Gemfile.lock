@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    auth_master (0.0.5)
+    auth_master (0.0.6)
       rails (~> 8.0, >= 8.0.2)
       token_guard (~> 0.1)
 
