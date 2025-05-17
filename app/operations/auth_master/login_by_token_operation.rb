@@ -1,7 +1,7 @@
 module AuthMaster
   class LoginByTokenOperation < AuthMaster::AbstractOperation
-    def self.call!(encrypted_token, uuid:, target_class:)
-      purpose = token_purpose_config(target_class.name.underscore)
+    def self.call!(encrypted_token, uuid:, target_class:, purpose:)
+      purpose ||= token_purpose_config(target_class.name.underscore)
       secret  = secret_config(target_class.name.underscore)
 
       auth_master_session_id = TokenGuard.decrypt(encrypted_token, purpose:, secret:)

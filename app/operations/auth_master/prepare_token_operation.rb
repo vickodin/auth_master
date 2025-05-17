@@ -1,10 +1,10 @@
 module AuthMaster
   class PrepareTokenOperation < AuthMaster::AbstractOperation
-    def self.call!(target, uuid:)
+    def self.call!(target, uuid:, purpose: nil)
       auth_master_session = AuthMaster::SessionService.create!(target, uuid:)
       return if auth_master_session.blank?
 
-      AuthMaster::TokenService.create!(auth_master_session)
+      AuthMaster::TokenService.create!(auth_master_session, purpose:)
       # purpose = token_purpose_config(target)
       # secret  = secret_config(target)
 
