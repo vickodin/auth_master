@@ -16,20 +16,20 @@ module AuthMaster::CurrentConcern
     target
   end
 
-  def auth_master_prepare_token(target)
+  def auth_master_prepare_token(target, purpose: nil)
     return if target.blank?
     return if !target.persisted?
 
     uuid = auth_master_session_id_generator
     session[auth_master_session_key(target.class)] = uuid
 
-    AuthMaster::PrepareTokenOperation.call!(target, uuid:)
+    AuthMaster::PrepareTokenOperation.call!(target, uuid:, purpose:)
   end
 
-  def auth_master_login_by_token(target_class, token)
+  def auth_master_login_by_token(target_class, token, purpose: nil)
     uuid = session[auth_master_session_key(target_class)]
 
-    auth_master_session = AuthMaster::LoginByTokenOperation.call!(token, uuid:, target_class:)
+    auth_master_session = AuthMaster::LoginByTokenOperation.call!(token, uuid:, target_class:, purpose:)
     return if auth_master_session.blank?
 
     session.delete(auth_master_session_key(target_class))
