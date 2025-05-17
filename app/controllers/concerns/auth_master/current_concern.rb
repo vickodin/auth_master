@@ -38,6 +38,13 @@ module AuthMaster::CurrentConcern
     true
   end
 
+  def auth_master_login_as!(target)
+    auth_master_session = AuthMaster::LoginOperation.call!(target, uuid: auth_master_session_id_generator)
+    session[auth_master_target_session_key(target.class)] = auth_master_session.id
+
+    true
+  end
+
   def auth_master_logout(target_class)
     auth_master_session_id = session.delete(auth_master_target_session_key(target_class))
     AuthMaster::LogoutOperation.call!(auth_master_session_id)

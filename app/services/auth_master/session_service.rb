@@ -5,10 +5,9 @@ module AuthMaster
     extend AuthMaster::Config
 
     class << self
-      def create!(target, uuid:)
-        return if !allow_creation?(target)
-
-        AuthMaster::Session.create!(target:, id: uuid)
+      def create!(target, uuid:, force: false)
+        # return unless force || allow_creation?(target)
+        AuthMaster::Session.create!(target:, id: uuid) if force || allow_creation?(target)
       end
 
       def inactive_find(id)
