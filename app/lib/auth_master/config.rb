@@ -32,7 +32,8 @@ module AuthMaster
       return target if target.is_a? Symbol
       return target.to_sym if target.is_a? String
 
-      target.class.to_s.underscore.to_sym
+      target_class_name = target.respond_to?(:auth_master_config_class) ? target.auth_master_config_class : target.class
+      target_class_name.to_s.underscore.to_sym
     end
 
     def config_for(target, name)
