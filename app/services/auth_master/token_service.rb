@@ -5,7 +5,7 @@ module AuthMaster
     extend AuthMaster::Config
 
     class << self
-      def create!(auth_master_session, purpose:)
+      def create!(auth_master_session, purpose: nil)
         purpose ||= token_purpose_config(auth_master_session.target)
         secret  = secret_config(auth_master_session.target)
 
