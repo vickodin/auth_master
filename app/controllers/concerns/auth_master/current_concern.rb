@@ -22,7 +22,7 @@ module AuthMaster::CurrentConcern
 
     uuid = auth_master_session_id_generator
     target_class = target.respond_to?(:auth_master_config_class) ? target.auth_master_config_class : target.class
-    session[auth_master_session_key(target.class)] = uuid
+    session[auth_master_session_key(target_class)] = uuid
 
     AuthMaster::PrepareTokenOperation.call!(target, uuid:, purpose:)
   end
