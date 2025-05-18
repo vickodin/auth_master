@@ -35,7 +35,7 @@ module AuthMaster::CurrentConcern
     session.delete(auth_master_session_key(target_class))
     session[auth_master_target_session_key(target_class)] = auth_master_session.id
 
-    true
+    auth_master_session.target
   end
 
   def auth_master_login_as!(target)
